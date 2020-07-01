@@ -1,0 +1,1 @@
+{{- template "common.SingleContainerDeployment" .Values.__CTX_UID__ }}

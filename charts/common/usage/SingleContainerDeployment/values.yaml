@@ -1,0 +1,12 @@
+__CTX_UID__:
+    name: __TODO__ # Your deployment name. Shared with its container!
+    labels:
+        organization: helmdeep
+        app: __TODO__ # Put your application label here, should be unique bettween app deployments.
+
+    spec: # Bellow is the conainer spect
+        image:
+            name: __TODO__ # The name of the container image
+            repository: gcr.io/helmdeepdev
+            tag: 0.0.1
+        command: __TODO__ # Container running command

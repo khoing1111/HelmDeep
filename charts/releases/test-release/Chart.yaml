@@ -1,0 +1,12 @@
+apiVersion: v2
+appVersion: 1.16.0
+helmdeep:
+  dependencies: []
+dependencies:
+- name: test
+  repository: file:///home/app/charts/services/test
+  version: 0.1.2
+description: A Helm chart for Kubernetes
+name: test-release
+type: application
+version: 0.1.3

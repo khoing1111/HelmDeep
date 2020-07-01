@@ -1,0 +1,10 @@
+apiVersion: v2
+appVersion: 1.16.0
+dependencies:
+- name: common
+  repository: repo:///home/app/repo
+  version: 1.0.0
+description: A Helm chart for Kubernetes
+name: backend-cotton-candy
+type: application
+version: 1.0.2

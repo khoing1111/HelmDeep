@@ -1,0 +1,29 @@
+# This bash specify the text output format of the log prefix (The environment)
+# This help identify the current environment in the first lance
+
+get_env_prompt() {
+  source /tmp/.gcl_env 2> /dev/null
+  if [ "$ENV" == "dev" ]; then
+    color="\e[1;44;97m" # Blue background, white text and bold
+  elif [ "$ENV" == "staging" ]; then
+    color="\e[1;43;97m" # Yellow background, white text and bold
+  elif [ "$ENV" == "prod" ]; then
+    color="\e[1;41;97m" # Red background, white text and bold
+  else
+    color="\e[1;49m" # Bold default background
+  fi
+
+  echo -en "$color[ $ENV ]\e[0m"
+}
+
+export PS1='$(get_env_prompt)\w$ '
+
+### gcloud auto completion
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/google-cloud-sdk/path.bash.inc' ]; then . '/home/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/google-cloud-sdk/completion.bash.inc' ]; then . '/home/google-cloud-sdk/completion.bash.inc'; fi
+
+### HelmDeep auto completetion
+if [ -f '/home/app/bin/_autocomplete.sh' ]; then . '/home/app/bin/_autocomplete.sh'; fi

@@ -1,0 +1,15 @@
+hello:
+  job:
+    backoffLimit: 4
+    name: say-hello
+    labels:
+      job: say-hello
+    spec:
+      command: ["python", "-m", "helmdeep.hello", "10"]
+      image:
+        name: backend-cotton-candy
+        repository: gcr.io/helmdeepdev
+        tag: latest
+        pullPolicy: Always
+      replicas: 1
+      restartPolicy: Never

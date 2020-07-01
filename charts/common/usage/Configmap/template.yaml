@@ -1,0 +1,1 @@
+{{- template "common.Configmap" .Values.__CTX_UID__ }}

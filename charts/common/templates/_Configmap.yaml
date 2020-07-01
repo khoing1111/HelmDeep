@@ -1,0 +1,13 @@
+{{- define "common.Configmap" -}}
+{{- if .skip -}}
+# Skipping configmap {{ .name }}
+{{- else -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .name }}
+  {{- "\n"}}{{ include "common.comp.labels" .labels | indent 2 }}
+data:
+    {{ .data }}
+{{- end -}}
+{{- end -}}

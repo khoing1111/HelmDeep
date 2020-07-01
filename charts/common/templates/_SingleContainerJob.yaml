@@ -1,0 +1,35 @@
+{{- define "common.SingleContainerDeployment" -}}
+{{- if .skip -}}
+# Skipping Job {{ .name }}
+{{- else }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .name }}
+  {{- if .labels }}
+  {{- "\n"}}{{ include "common.comp.labels" .labels | indent 2 }}
+  {{- end }}
+spec:
+  {{- if .ttlSecondsAfterFinished }}
+  ttlSecondsAfterFinished: {{ .ttlSecondsAfterFinished }}
+  {{- else }}
+  ttlSecondsAfterFinished: 1800
+  {{- end }}
+  template:
+    spec:
+      containers:
+      {{- $_ := set .spec "name" .name }}
+      {{- "\n"}}{{- include "common.comp.container" .spec | indent 6 }}
+      {{- if .spec.restartPolicy }}
+      restartPolicy: {{ .spec.restartPolicy }}
+      {{- else }}
+      restartPolicy: Never
+      {{- end -}}
+  {{- if .backoffLimit }}
+  backoffLimit: {{ .backoffLimit }}
+  {{- end -}}
+  {{- if .activeDeadlineSeconds }}
+  activeDeadlineSeconds: {{ .activeDeadlineSeconds }}
+  {{- end -}}
+{{- end -}}
+{{- end -}}

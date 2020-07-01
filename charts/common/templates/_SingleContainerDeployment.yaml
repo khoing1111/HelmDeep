@@ -1,0 +1,21 @@
+{{- define "common.SingleContainerDeployment" -}}
+{{- if .skip -}}
+# Skipping deployment {{ .name }}
+{{- else }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .name }}
+  {{- "\n"}}{{ include "common.comp.labels" .labels | indent 2 }}
+spec:
+  replicas: {{ .spec.replicas }}
+  {{- "\n"}}{{ include "common.comp.labelSelector" .labels | indent 2 }}
+  template:
+    metadata:
+    {{- "\n"}}{{ include "common.comp.labels" .labels | indent 6 }}
+    spec:
+      containers:
+      {{- $_ := set .spec "name" .name }}
+      {{- "\n"}}{{- include "common.comp.container" .spec | indent 6 }}
+{{- end -}}
+{{- end -}}

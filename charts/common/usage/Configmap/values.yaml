@@ -1,0 +1,6 @@
+__CTX_UID__:
+    name: __TODO__ # Your configmap name.
+    labels:
+        organization: helmdeep
+    data:
+        __TODO__ # Put your configmap data here

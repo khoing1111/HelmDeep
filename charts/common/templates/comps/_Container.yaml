@@ -1,0 +1,47 @@
+{{- define "common.comp.container" -}}
+- name: {{ .name }}
+  image: {{ .image.repository }}/{{ .image.name }}:{{ .image.tag }}
+  {{- if .imagePullPolicy }}
+  imagePullPolicy: {{ .imagePullPolicy }}
+  {{- else }}
+  imagePullPolicy: Always
+  {{- end }}
+  command: [{{range $i, $el := .command}}{{if $i}}, {{end}}"{{$el}}"{{end}}]
+  {{- if .ports }}
+  ports:
+  {{- range .ports }}
+  - containerPort: {{ . }}
+  {{- end -}}
+  {{- end -}}
+
+  {{- with .serviceAccountName }}
+  serviceAccountName: {{ . }}
+  {{- end }}
+  {{- with .automountServiceAccountToken }}
+  automountServiceAccountToken: {{ . }}
+  {{ end }}
+
+  {{- /***** BEGIN RESOURCES *****/ -}}
+  {{- with .resources }}
+  resources:
+    {{- with .requests }}
+    requests:
+      {{- with .memory }}
+      memory: {{ . }}
+      {{ end }}
+      {{- with .cpu }}
+      cpu: {{ . }}
+      {{ end }}
+    {{- end -}}
+    {{- with .limits }}
+    limits:
+      {{- with .memory }}
+      memory: {{ . }}
+      {{ end }}
+      {{- with .cpu }}
+      cpu: {{ . }}
+      {{ end }}
+    {{- end -}}
+  {{- end -}}
+  {{- /***** END RESOURCES *****/ -}}
+{{- end -}}

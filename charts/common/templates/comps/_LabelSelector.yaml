@@ -1,0 +1,4 @@
+{{- define "common.comp.labelSelector" -}}
+selector:
+  matchLabels: {{- toYaml . | nindent 4 }}
+{{- end -}}

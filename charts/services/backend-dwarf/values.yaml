@@ -1,0 +1,11 @@
+deployment:
+  name: backend-dwarf
+  labels:
+    service: backend-dwarf
+    some: thing-else
+  spec:
+    replicas: 1
+    image:
+      repository: gcr.io/helmdeepdev
+      name: backend-dwarf
+      tag: v1.0.1

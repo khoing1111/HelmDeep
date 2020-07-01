@@ -1,0 +1,26 @@
+test:
+    name: hello    # Your deployment name. Shared with its container!
+    labels:
+        organization: helmdeep
+        app: hello    # Put your application label here, should be unique bettween app deployments.
+
+    spec: # Bellow is the conainer spect
+        image:
+            name: hello    # The name of the container image
+            repository: gcr.io/helmdeepdev
+            tag: 0.0.1
+        command:          # Container running command
+            - a
+            - b
+            - c
+        resources:
+            requests:
+                cpu: "250m"
+        serviceAccountName: hello
+
+testConfig:
+    name: hello    # Your configmap name.
+    labels:
+        organization: helmdeep
+    data:        # Put your configmap data here
+        abc: xyz
